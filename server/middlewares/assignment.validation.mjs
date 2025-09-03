@@ -19,6 +19,13 @@ export const validateCreateAssignmentData = (req, res, next) => {
       message: "กรุณาส่งข้อมูล email เข้ามาด้วย",
     });
   }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isValidEmail = emailRegex.test(req.body.email);
+  if (!isValidEmail) {
+    return res.status(400).json({
+      message: "รูปแบบของ email ไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง",
+    });
+  }
 
   const categoryTypeList = ["Math", "English", "Biology"];
   const hascategoryTypeList = categoryTypeList.includes(req.body.category);
